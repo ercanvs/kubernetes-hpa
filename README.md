@@ -31,9 +31,11 @@ daha sonra burda sertifika ile alakalı hata alırsak x.509 hatası gibi
   burda min replica count u 2  max 5 eger cpu ve memory %80 i geçerse yeni replica create eder daha sonra resource degeri düşerse tekrar azalır replica count u
 
 
-
-
-apiVersion: autoscaling/v2beta2
+    resources:
+    limits:
+      cpu: 500m
+      memory: "500Mi"
+    apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: {{ .Release.Name }}-service
@@ -69,5 +71,11 @@ spec:
       target:
         type: Utilization
         averageUtilization: 80
+    requests:
+      cpu: 200m
+      memory: "300Mi"
+  
+
+
 
 
