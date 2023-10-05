@@ -3,10 +3,11 @@ kubernetes üzerinde hpa aktif etmek için microservislerimizi helm ile deployme
 burda hpa aktif etmek için öncelikle metric-server i yüklemek gerekir metric server i yüklemek için 
 
 https://github.com/ercanvs/kubernetes-hpa/blob/main/metric-server.yaml bunu yuklememiz gerekiyor yüklemek için 
-k apply -f https://github.com/ercanvs/kubernetes-hpa/blob/main/metric-server.yaml
+         k apply -f https://github.com/ercanvs/kubernetes-hpa/blob/main/metric-server.yaml
 daha sonra burda sertifika ile alakalı hata alırsak x.509 hatası gibi
 - --kubelet-insecure-tls bu komutu kube-system  in deployment ina eklememız grekir
-            args:
+
+         args:
             - '--cert-dir=/tmp'
             - '--secure-port=443'
             - '--kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname'
@@ -27,11 +28,12 @@ daha sonra burda sertifika ile alakalı hata alırsak x.509 hatası gibi
 
   burda dikkat edilmesi gereken her zaman limit>=requests
   daha sonra template folder inin altında hpa.yaml i editleyelim burda release-name helm i yüklerken yazdıgımız deger
-  helm upgrade --install microservice1 .   burdaki release-name i microservice1 oluyor
+        helm upgrade --install microservice1 .
+  burdaki release-name i microservice1 oluyor
   burda min replica count u 2  max 5 eger cpu ve memory %80 i geçerse yeni replica create eder daha sonra resource degeri düşerse tekrar azalır replica count u
 
 
-         apiVersion: autoscaling/v2beta2
+        apiVersion: autoscaling/v2beta2
         kind: HorizontalPodAutoscaler
         metadata:
           name: {{ .Release.Name }}-service
