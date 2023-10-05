@@ -31,49 +31,43 @@ daha sonra burda sertifika ile alakalı hata alırsak x.509 hatası gibi
   burda min replica count u 2  max 5 eger cpu ve memory %80 i geçerse yeni replica create eder daha sonra resource degeri düşerse tekrar azalır replica count u
 
 
-    resources:
-    limits:
-      cpu: 500m
-      memory: "500Mi"
-    apiVersion: autoscaling/v2beta2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: {{ .Release.Name }}-service
-  namespace: default
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: {{ .Release.Name }}-service
-  minReplicas: 2
-  maxReplicas: 5
-  behavior:
-    scaleUp:
-      policies:
-      - type: Pods
-        value: 2
-        periodSeconds: 60
-    scaleDown:
-      policies:
-      - type: Percent
-        value: 10
-        periodSeconds: 60
-  metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: 80
-  - type: Resource
-    resource:
-      name: memory
-      target:
-        type: Utilization
-        averageUtilization: 80
-    requests:
-      cpu: 200m
-      memory: "300Mi"
+         apiVersion: autoscaling/v2beta2
+        kind: HorizontalPodAutoscaler
+        metadata:
+          name: {{ .Release.Name }}-service
+          namespace: v2-ftms
+        spec:
+          scaleTargetRef:
+            apiVersion: apps/v1
+            kind: Deployment
+            name: {{ .Release.Name }}-service
+          minReplicas: 2
+          maxReplicas: 5
+          behavior:
+            scaleUp:
+              policies:
+              - type: Pods
+                value: 2
+                periodSeconds: 60
+            scaleDown:
+              policies:
+              - type: Percent
+                value: 10
+                periodSeconds: 60
+          metrics:
+          - type: Resource
+            resource:
+              name: cpu
+              target:
+                type: Utilization
+                averageUtilization: 80
+          - type: Resource
+            resource:
+              name: memory
+              target:
+                type: Utilization
+                averageUtilization: 80
+
   
 
 
