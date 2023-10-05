@@ -33,6 +33,14 @@ daha sonra burda sertifika ile alakalı hata alırsak x.509 hatası gibi
 
 
 
+          resources:
+          limits:
+            cpu: 500m
+            memory: "500Mi"
+          requests:
+            cpu: 200m
+            memory: "300Mi"
+
 apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
