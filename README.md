@@ -30,7 +30,10 @@ daha sonra burda sertifika ile alakalı hata alırsak x.509 hatası gibi
   helm upgrade --install microservice1 .   burdaki release-name i microservice1 oluyor
   burda min replica count u 2  max 5 eger cpu ve memory %80 i geçerse yeni replica create eder daha sonra resource degeri düşerse tekrar azalır replica count u
 
-  apiVersion: autoscaling/v2beta2
+
+
+
+apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: {{ .Release.Name }}-service
